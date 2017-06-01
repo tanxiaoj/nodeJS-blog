@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/public/css/index.css"/>
+    <script src="/public/js/jquery-1.11.1.min.js"></script>
+    <script src="/public/js/index.js"></script>
+    <script></script>
+</head>
+<body>
+<div class="ad">
+
+</div>
+<ul class="nav nav-pills">
+    {%if categroy == ""%}
+    <li role="presentation" class="active"><a href="/">Home</a></li>
+    {%else%}
+    <li role="presentation"><a href="/">Home</a></li>
+    {%endif%}
+
+    {% for cate in categroies %}
+    {%if categroy == cate.id%}
+    <li role="presentation" class="active"><a href="/?categroy={{cate.id}}">{{cate.name}}</a></li>
+    {%else%}
+    <li role="presentation"><a href="/?categroy={{cate.id}}">{{cate.name}}</a></li>
+    {%endif%}
+    {% endfor %}
+</ul>
+
+<div class="contain">
+    <div class="contain-left">
+        {%block content%}{%endblock%}
+    </div>
+    <div class="contain-right">
+        {% if userInfo._id %}
+        <div class="userMes">
+            <h1>用户信息</h1>
+            <span class="userName">{{userInfo.username}}</span>
+            {% if userInfo.isAdmin %}
+            <div class="userTips"><em>你好，管理员  </em>  <a href="/admin">你可以点击这里进入管理</a></div>
+            {% else %}
+            <div class="userTips"><em>你好，欢迎光临我的播客，</em></div>
+            {% endif %}
+            <div id="loginout">退出</div>
+        </div>
+        {% else %}
+        <div class="login">
+            <h1>登录</h1>
+            <laber>用户名:</laber>
+            <input name="username" type="text"/><br/><br/>
+            <laber>密&nbsp&nbsp&nbsp码:</laber>
+            <input name="password" type="password"/> <br/>
+            <button>登录</button>
+            <br/>
+            <span>还没注册？</span><a href="javascript:;">马上注册</a>
+            <div class="register-tips"></div>
+        </div>
+        <div class="register" style="display: none">
+            <h1>注册</h1>
+            <laber>用&nbsp户&nbsp&nbsp名:</laber>
+            <input name="username" type="text"/><br/><br/>
+            <laber>密&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp码:</laber>
+            <input name="password" type="password"/> <br/><br/>
+            <laber>确认密码:</laber>
+            <input name="repassword" type="password"/>
+            <button>注册</button>
+            <span>已有账号？</span><a href="javascript:;">马上登录</a>
+            <div class="register-tips"></div>
+        </div>
+        {%endif%}
+    </div>
+</div>
+</body>
+</html>

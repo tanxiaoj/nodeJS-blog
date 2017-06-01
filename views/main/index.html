@@ -1,0 +1,52 @@
+{%extends 'layout.html'%}
+{%block content%}
+    <ul class="model">
+        {% for content in contents %}
+        <li>
+            <h1>{{content.title}}</h1>
+            <div class="model-mes">
+                <em>作者:</em><span>{{content.user.username}}</span>
+                <em>时间:</em><span>{{content.addTime|date('Y年m月d日 H:i:s',-8*60)}}<br/>
+                <em>阅读:</em><span>{{content.views}}</span>
+                <em>评论:</em><span>{{content.comments.length}}</span>
+            </div>
+            <div class="model-text">{{content.desc}}</div>
+            <a href="/view?contentid={{content.id}}" class="readAll">阅读全文</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <nav aria-label="Page navigation">
+        {% if pages > 0 %}
+        <ul class="pagination">
+            <li>
+                {%if page <= 1 %}
+                <a href="javascript:;" aria-label="Previous">
+                    <span aria-hidden="true">没有上一页了</span>
+                </a>
+                {%else%}
+                <a href="/?categroy={{categroy}}&page={{page-1}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                {%endif%}
+                </a>
+            </li>
+            <li><a href="#">{{page}}/{{pages}}</a></li>
+            <!--<li><a href="#">2</a></li>-->
+            <!--<li><a href="#">3</a></li>-->
+            <!--<li><a href="#">4</a></li>-->
+            <!--<li><a href="#">5</a></li>-->
+            <li>
+                {%if page >= pages %}
+                <a href="javascript:;" aria-label="Next">
+                    <span aria-hidden="true">没有下一页了</span>
+                </a>
+                {%else%}
+                <a href="/?categroy={{categroy}}&page={{page+1}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                {%endif%}
+            </li>
+        </ul>
+        {% endif %}
+    </nav>
+{%endblock%}
